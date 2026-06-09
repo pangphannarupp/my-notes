@@ -66,7 +66,26 @@ class NotificationService {
         ),
         iOS: DarwinNotificationDetails(),
       ),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+    );
+  }
+
+  Future<void> showTestNotification() async {
+    await requestPermissions();
+    await flutterLocalNotificationsPlugin.show(
+      999,
+      'Test Notification',
+      'If you see this, notifications are working!',
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'task_reminder_channel',
+          'Task Reminders',
+          channelDescription: 'Channel for task reminders',
+          importance: Importance.max,
+          priority: Priority.high,
+        ),
+        iOS: DarwinNotificationDetails(),
+      ),
     );
   }
 
